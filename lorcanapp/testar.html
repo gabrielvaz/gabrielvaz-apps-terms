@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testar o LorcanApp — em breve nas lojas</title>
+<meta name="description" content="O LorcanApp ainda não está publicado nas lojas, mas já dá para testar: TestFlight no iPhone e teste fechado no Android. App não oficial de Disney Lorcana, feito por fã.">
+<meta name="author" content="Gabriel Kruschewsky Mattos Vaz">
+<meta name="robots" content="index, follow">
+<style>:root{color-scheme:light dark;--bg:#fbfaf7;--fg:#1b1a17;--muted:#5c5850;
+--rule:#dedad1;--accent:#7a5b12;--card:#f3efe6;}
+@media (prefers-color-scheme:dark){:root{--bg:#15140f;--fg:#eae6dc;
+--muted:#a6a094;--rule:#332f27;--accent:#e0bd63;--card:#1e1c16;}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+font-size:17px;line-height:1.6;}
+.wrap{max-width:44rem;margin:0 auto;padding:1.5rem 1.1rem 4rem;}
+header.top{border-bottom:1px solid var(--rule);padding-bottom:1.1rem;margin-bottom:1.6rem;}
+.app{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+color:var(--accent);margin:0 0 .3rem;font-weight:700;}
+h1{font-size:1.55rem;line-height:1.25;margin:0 0 .6rem;}
+h2{font-size:1.3rem;line-height:1.3;margin:2.4rem 0 .7rem;
+padding-top:1.2rem;border-top:1px solid var(--rule);}
+h3{font-size:1.02rem;margin:1.6rem 0 .4rem;}
+p,li{margin:.6rem 0;overflow-wrap:break-word;}
+ul,ol{padding-left:1.2rem;margin:.6rem 0;}
+a{color:var(--accent);}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.meta{font-size:.88rem;color:var(--muted);margin:.5rem 0 0;}
+nav.langs{margin:.9rem 0 .2rem;font-size:.95rem;}
+nav.langs a{display:inline-block;padding:.4rem .7rem;margin:.2rem .35rem .2rem 0;
+border:1px solid var(--rule);border-radius:999px;text-decoration:none;background:var(--card);}
+.notice{background:var(--card);border:1px solid var(--rule);border-radius:.6rem;
+padding:.8rem 1rem;margin:1.2rem 0;font-size:.92rem;}
+.notice p{margin:.4rem 0;}
+.dl{background:var(--card);border:1px solid var(--rule);border-radius:.6rem;
+padding:1rem 1.1rem;margin:1.1rem 0;}
+.dl p{margin:.4rem 0;}
+.btn{display:inline-block;margin:.6rem .5rem .3rem 0;padding:.7rem 1.1rem;
+border:1px solid var(--accent);border-radius:.6rem;text-decoration:none;
+font-weight:600;line-height:1.2;}
+.btn.primary{background:var(--accent);color:var(--bg);}
+.soon{font-size:.88rem;color:var(--muted);}
+section.lang{scroll-margin-top:1rem;}
+.top-link{font-size:.85rem;color:var(--muted);margin-top:1.6rem;}
+footer{border-top:1px solid var(--rule);margin-top:3rem;padding-top:1.2rem;
+font-size:.9rem;color:var(--muted);}
+footer ul{list-style:none;padding:0;}
+footer li{margin:.35rem 0;}
+
+/* Bloco de plataforma: o QR só faz sentido em tela grande, onde o aparelho
+   não é o próprio dispositivo que está lendo a página. No celular ele é ruído —
+   o dedo já está no botão. */
+.plat{display:grid;gap:1rem;grid-template-columns:1fr;align-items:start;}
+.qr{display:none;}
+.qr svg{width:9.5rem;height:9.5rem;display:block;color:var(--fg);
+background:#fff;padding:.5rem;border-radius:.4rem;}
+@media (prefers-color-scheme:dark){.qr svg{background:#eae6dc;color:#15140f;}}
+.qr figcaption{font-size:.8rem;color:var(--muted);margin-top:.4rem;max-width:9.5rem;}
+@media (min-width:41rem){
+  .plat{grid-template-columns:1fr auto;}
+  .qr{display:block;margin:0;}
+}
+ol.steps{counter-reset:s;list-style:none;padding-left:0;}
+ol.steps li{counter-increment:s;position:relative;padding-left:2rem;margin:.7rem 0;}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:.05rem;
+width:1.4rem;height:1.4rem;border-radius:999px;background:var(--accent);color:var(--bg);
+font-size:.82rem;font-weight:700;display:grid;place-items:center;}
+.tag{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+font-weight:700;padding:.2rem .5rem;border-radius:.3rem;background:var(--accent);color:var(--bg);
+vertical-align:.15em;margin-left:.4rem;}
+/* Realce dado pelo script quando o aparelho é reconhecido. Sem JS, os dois
+   blocos aparecem iguais — nada é escondido atrás de detecção. */
+.match{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent);}
+@media (max-width:420px){body{font-size:16px}h1{font-size:1.35rem}.wrap{padding:1.2rem .9rem 3rem}
+.btn{display:block;text-align:center;margin-right:0}}</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<p class="app">LorcanApp</p>
+<h1>Em breve nas lojas &mdash; e já dá para testar hoje</h1>
+<p class="meta">App não oficial de Disney Lorcana &middot; Gabriel Kruschewsky Mattos Vaz &middot; <a href="mailto:gabrielk.vaz@gmail.com">gabrielk.vaz@gmail.com</a></p>
+<nav class="langs" aria-label="Idioma / Language">
+<a href="#pt" lang="pt-BR" hreflang="pt-BR">Português</a>
+<a href="#en" lang="en-US" hreflang="en-US">English</a>
+</nav>
+</header>
+<div class="notice" role="note">
+<p lang="pt-BR">App não oficial, feito por um fã. Sem vínculo com a Disney ou a Ravensburger: não é afiliado, patrocinado, endossado nem aprovado por elas.</p>
+<p lang="en-US">Unofficial, fan-made app. Not affiliated with, sponsored, endorsed or approved by Disney or Ravensburger.</p>
+</div>
+
+<main>
+<section class="lang" id="pt" lang="pt-BR">
+<h2>Português</h2>
+
+<p>O LorcanApp é um app para colecionar e jogar <strong>Disney Lorcana</strong>: catálogo completo das 3.242 cartas offline, scanner de câmera que reconhece a carta no próprio aparelho, preço em real, construtor de deck que prova a legalidade carta por carta, e contador de lore para até 4 jogadores.</p>
+
+<p><strong>Ele ainda não está publicado nas lojas.</strong> As duas versões estão em fase de teste, e é aí que você entra — abaixo estão os dois caminhos, um para iPhone e um para Android.</p>
+
+<h3>iPhone e iPad <span class="tag">testável agora</span></h3>
+<div class="dl" id="bloco-ios">
+<div class="plat">
+<div>
+<p>O teste do iPhone roda pelo <strong>TestFlight</strong>, o app oficial da Apple para testar apps antes do lançamento. É gratuito e a instalação leva um minuto.</p>
+<ol class="steps">
+<li>Instale o <a href="https://apps.apple.com/app/testflight/id899247664">TestFlight</a> na App Store. Sem ele, o link do passo 2 não abre em nada.</li>
+<li>Abra este link no <strong>iPhone</strong>: <a href="https://testflight.apple.com/join/X5Pm5wqt">testflight.apple.com/join/X5Pm5wqt</a></li>
+<li>O TestFlight vai abrir mostrando o LorcanApp. Toque em <strong>Aceitar</strong> e depois em <strong>Instalar</strong>.</li>
+<li>Pronto: o app aparece na sua tela de início, com um pontinho laranja do lado do nome. É por ali que você abre.</li>
+</ol>
+<p><a class="btn primary" href="https://testflight.apple.com/join/X5Pm5wqt">Testar no iPhone</a></p>
+<p class="soon">Se o link disser que o teste está cheio ou expirado, me escreva: eu abro mais vagas.</p>
+</div>
+<figure class="qr">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" role="img" aria-label="QR code"><path fill="currentColor" d="M2 2h7v1h-7zM10 2h1v1h-1zM12 2h1v1h-1zM16 2h7v1h-7zM24 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM10 3h1v1h-1zM12 3h2v1h-2zM16 3h1v1h-1zM18 3h3v1h-3zM22 3h1v1h-1zM24 3h1v1h-1zM30 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM12 4h1v1h-1zM15 4h1v1h-1zM21 4h1v1h-1zM24 4h1v1h-1zM26 4h3v1h-3zM30 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h1v1h-1zM12 5h8v1h-8zM22 5h1v1h-1zM24 5h1v1h-1zM26 5h3v1h-3zM30 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM11 6h7v1h-7zM19 6h1v1h-1zM21 6h1v1h-1zM24 6h1v1h-1zM26 6h3v1h-3zM30 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM13 7h1v1h-1zM15 7h2v1h-2zM18 7h1v1h-1zM20 7h2v1h-2zM24 7h1v1h-1zM30 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h7v1h-7zM10 9h3v1h-3zM14 9h1v1h-1zM19 9h2v1h-2zM22 9h1v1h-1zM2 10h1v1h-1zM4 10h2v1h-2zM7 10h3v1h-3zM13 10h2v1h-2zM17 10h1v1h-1zM19 10h1v1h-1zM21 10h2v1h-2zM24 10h1v1h-1zM27 10h1v1h-1zM29 10h2v1h-2zM11 11h3v1h-3zM16 11h11v1h-11zM30 11h1v1h-1zM2 12h2v1h-2zM5 12h5v1h-5zM11 12h1v1h-1zM13 12h2v1h-2zM18 12h1v1h-1zM20 12h1v1h-1zM23 12h1v1h-1zM25 12h1v1h-1zM28 12h2v1h-2zM2 13h1v1h-1zM4 13h1v1h-1zM6 13h1v1h-1zM9 13h1v1h-1zM13 13h1v1h-1zM15 13h3v1h-3zM21 13h1v1h-1zM25 13h1v1h-1zM30 13h1v1h-1zM3 14h2v1h-2zM6 14h8v1h-8zM15 14h2v1h-2zM19 14h1v1h-1zM25 14h1v1h-1zM27 14h2v1h-2zM5 15h2v1h-2zM10 15h5v1h-5zM17 15h1v1h-1zM19 15h1v1h-1zM21 15h1v1h-1zM24 15h1v1h-1zM28 15h3v1h-3zM2 16h2v1h-2zM5 16h1v1h-1zM8 16h1v1h-1zM14 16h1v1h-1zM16 16h1v1h-1zM18 16h2v1h-2zM21 16h1v1h-1zM23 16h1v1h-1zM25 16h2v1h-2zM28 16h3v1h-3zM2 17h3v1h-3zM7 17h1v1h-1zM11 17h2v1h-2zM16 17h1v1h-1zM18 17h1v1h-1zM21 17h3v1h-3zM26 17h1v1h-1zM29 17h1v1h-1zM5 18h1v1h-1zM8 18h3v1h-3zM12 18h4v1h-4zM17 18h1v1h-1zM20 18h4v1h-4zM26 18h2v1h-2zM29 18h1v1h-1zM4 19h1v1h-1zM6 19h2v1h-2zM9 19h1v1h-1zM11 19h2v1h-2zM15 19h3v1h-3zM19 19h1v1h-1zM25 19h1v1h-1zM27 19h3v1h-3zM2 20h1v1h-1zM7 20h2v1h-2zM10 20h1v1h-1zM12 20h1v1h-1zM14 20h1v1h-1zM17 20h3v1h-3zM23 20h4v1h-4zM28 20h1v1h-1zM4 21h1v1h-1zM7 21h1v1h-1zM9 21h1v1h-1zM11 21h1v1h-1zM19 21h2v1h-2zM23 21h1v1h-1zM28 21h1v1h-1zM3 22h1v1h-1zM7 22h3v1h-3zM12 22h1v1h-1zM14 22h1v1h-1zM16 22h13v1h-13zM10 23h4v1h-4zM16 23h1v1h-1zM18 23h5v1h-5zM26 23h5v1h-5zM2 24h7v1h-7zM10 24h4v1h-4zM18 24h5v1h-5zM24 24h1v1h-1zM26 24h2v1h-2zM29 24h1v1h-1zM2 25h1v1h-1zM8 25h1v1h-1zM10 25h1v1h-1zM12 25h1v1h-1zM14 25h2v1h-2zM17 25h1v1h-1zM20 25h1v1h-1zM22 25h1v1h-1zM26 25h2v1h-2zM2 26h1v1h-1zM4 26h3v1h-3zM8 26h1v1h-1zM13 26h1v1h-1zM19 26h2v1h-2zM22 26h5v1h-5zM28 26h3v1h-3zM2 27h1v1h-1zM4 27h3v1h-3zM8 27h1v1h-1zM10 27h3v1h-3zM16 27h3v1h-3zM22 27h2v1h-2zM25 27h3v1h-3zM30 27h1v1h-1zM2 28h1v1h-1zM4 28h3v1h-3zM8 28h1v1h-1zM10 28h1v1h-1zM12 28h1v1h-1zM14 28h3v1h-3zM18 28h5v1h-5zM25 28h1v1h-1zM28 28h1v1h-1zM30 28h1v1h-1zM2 29h1v1h-1zM8 29h1v1h-1zM14 29h1v1h-1zM16 29h1v1h-1zM22 29h1v1h-1zM26 29h2v1h-2zM29 29h1v1h-1zM2 30h7v1h-7zM10 30h1v1h-1zM13 30h5v1h-5zM20 30h5v1h-5zM27 30h1v1h-1zM29 30h1v1h-1z"/></svg>
+<figcaption>Aponte a câmera do iPhone para instalar pelo TestFlight.</figcaption>
+</figure>
+</div>
+</div>
+
+<h3>Android <span class="tag">precisa liberar seu e-mail</span></h3>
+<div class="dl" id="bloco-android">
+<div class="plat">
+<div>
+<p>No Android o app está em <strong>teste fechado</strong> do Google Play. A regra do Google é que só quem está na lista de testadores consegue instalar — então o link sozinho não resolve, eu preciso liberar o seu e-mail antes.</p>
+<ol class="steps">
+<li>Me manda o e-mail da <strong>conta Google do seu celular</strong> (o que você usa na Play Store) por <a href="mailto:gabrielk.vaz@gmail.com?subject=Quero%20testar%20o%20LorcanApp%20no%20Android&amp;body=Oi!%20Quero%20entrar%20no%20teste%20do%20LorcanApp.%0A%0AMeu%20e-mail%20da%20conta%20Google%20(Play%20Store)%20%C3%A9%3A%20">e-mail</a> ou WhatsApp.</li>
+<li>Eu te adiciono na lista e te aviso. Costuma levar poucas horas.</li>
+<li>Aí abra este link no <strong>celular</strong>, já logado nessa conta: <a href="https://play.google.com/apps/testing/com.gabrielvaz.lorcanapp">play.google.com/apps/testing/com.gabrielvaz.lorcanapp</a></li>
+<li>Toque em <strong>Tornar-se um testador</strong> e depois em <strong>Baixar no Google Play</strong>.</li>
+</ol>
+<p><a class="btn primary" href="mailto:gabrielk.vaz@gmail.com?subject=Quero%20testar%20o%20LorcanApp%20no%20Android&amp;body=Oi!%20Quero%20entrar%20no%20teste%20do%20LorcanApp.%0A%0AMeu%20e-mail%20da%20conta%20Google%20(Play%20Store)%20%C3%A9%3A%20">Pedir acesso ao teste</a>
+<a class="btn" href="https://play.google.com/apps/testing/com.gabrielvaz.lorcanapp">Já fui liberado, quero instalar</a></p>
+<p class="soon">O Google pede 12 testadores ativos por 14 dias seguidos antes de deixar o app ir para a loja aberta. Quem entra agora e deixa instalado por duas semanas é literalmente quem faz o app chegar na Play Store.</p>
+</div>
+<figure class="qr">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" role="img" aria-label="QR code"><path fill="currentColor" d="M2 2h7v1h-7zM10 2h1v1h-1zM12 2h2v1h-2zM16 2h1v1h-1zM18 2h6v1h-6zM25 2h1v1h-1zM28 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM10 3h1v1h-1zM12 3h1v1h-1zM16 3h1v1h-1zM18 3h3v1h-3zM23 3h1v1h-1zM25 3h1v1h-1zM28 3h1v1h-1zM34 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM12 4h2v1h-2zM15 4h1v1h-1zM17 4h1v1h-1zM24 4h3v1h-3zM28 4h1v1h-1zM30 4h3v1h-3zM34 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h5v1h-5zM18 5h2v1h-2zM24 5h2v1h-2zM28 5h1v1h-1zM30 5h3v1h-3zM34 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h3v1h-3zM21 6h1v1h-1zM26 6h1v1h-1zM28 6h1v1h-1zM30 6h3v1h-3zM34 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM12 7h1v1h-1zM15 7h2v1h-2zM18 7h4v1h-4zM23 7h1v1h-1zM28 7h1v1h-1zM34 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h7v1h-7zM10 9h5v1h-5zM16 9h1v1h-1zM19 9h3v1h-3zM24 9h1v1h-1zM2 10h1v1h-1zM4 10h2v1h-2zM7 10h3v1h-3zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h3v1h-3zM23 10h1v1h-1zM28 10h1v1h-1zM31 10h1v1h-1zM33 10h2v1h-2zM2 11h4v1h-4zM7 11h1v1h-1zM9 11h3v1h-3zM19 11h4v1h-4zM25 11h2v1h-2zM28 11h2v1h-2zM31 11h2v1h-2zM34 11h1v1h-1zM3 12h2v1h-2zM8 12h3v1h-3zM12 12h3v1h-3zM16 12h1v1h-1zM18 12h1v1h-1zM20 12h1v1h-1zM22 12h1v1h-1zM25 12h3v1h-3zM29 12h3v1h-3zM33 12h2v1h-2zM2 13h1v1h-1zM4 13h1v1h-1zM7 13h1v1h-1zM9 13h2v1h-2zM12 13h1v1h-1zM14 13h2v1h-2zM17 13h2v1h-2zM20 13h1v1h-1zM22 13h1v1h-1zM28 13h2v1h-2zM31 13h1v1h-1zM33 13h1v1h-1zM5 14h5v1h-5zM11 14h2v1h-2zM14 14h1v1h-1zM17 14h3v1h-3zM21 14h1v1h-1zM24 14h4v1h-4zM29 14h3v1h-3zM33 14h1v1h-1zM2 15h1v1h-1zM4 15h1v1h-1zM6 15h1v1h-1zM10 15h1v1h-1zM13 15h6v1h-6zM20 15h4v1h-4zM26 15h1v1h-1zM29 15h1v1h-1zM31 15h3v1h-3zM2 16h1v1h-1zM6 16h4v1h-4zM12 16h1v1h-1zM14 16h1v1h-1zM16 16h1v1h-1zM20 16h2v1h-2zM23 16h1v1h-1zM26 16h1v1h-1zM28 16h2v1h-2zM31 16h1v1h-1zM3 17h1v1h-1zM5 17h3v1h-3zM12 17h4v1h-4zM17 17h1v1h-1zM21 17h1v1h-1zM23 17h2v1h-2zM26 17h4v1h-4zM31 17h2v1h-2zM3 18h2v1h-2zM6 18h1v1h-1zM8 18h3v1h-3zM12 18h2v1h-2zM15 18h1v1h-1zM18 18h1v1h-1zM21 18h8v1h-8zM30 18h3v1h-3zM2 19h1v1h-1zM5 19h1v1h-1zM9 19h1v1h-1zM11 19h2v1h-2zM14 19h4v1h-4zM24 19h3v1h-3zM28 19h1v1h-1zM30 19h2v1h-2zM34 19h1v1h-1zM3 20h1v1h-1zM6 20h3v1h-3zM16 20h2v1h-2zM19 20h2v1h-2zM22 20h3v1h-3zM27 20h4v1h-4zM32 20h2v1h-2zM6 21h2v1h-2zM10 21h2v1h-2zM15 21h1v1h-1zM19 21h1v1h-1zM24 21h2v1h-2zM27 21h2v1h-2zM30 21h1v1h-1zM33 21h1v1h-1zM2 22h2v1h-2zM8 22h1v1h-1zM10 22h1v1h-1zM12 22h2v1h-2zM15 22h2v1h-2zM18 22h6v1h-6zM27 22h1v1h-1zM31 22h3v1h-3zM2 23h1v1h-1zM4 23h1v1h-1zM6 23h2v1h-2zM11 23h4v1h-4zM16 23h1v1h-1zM18 23h5v1h-5zM25 23h1v1h-1zM28 23h1v1h-1zM31 23h1v1h-1zM34 23h1v1h-1zM4 24h2v1h-2zM7 24h3v1h-3zM14 24h3v1h-3zM20 24h1v1h-1zM23 24h4v1h-4zM28 24h7v1h-7zM3 25h2v1h-2zM11 25h1v1h-1zM17 25h1v1h-1zM20 25h2v1h-2zM25 25h3v1h-3zM29 25h1v1h-1zM31 25h1v1h-1zM2 26h1v1h-1zM7 26h3v1h-3zM13 26h2v1h-2zM16 26h1v1h-1zM18 26h2v1h-2zM24 26h1v1h-1zM26 26h5v1h-5zM33 26h2v1h-2zM10 27h2v1h-2zM13 27h1v1h-1zM17 27h3v1h-3zM21 27h1v1h-1zM23 27h1v1h-1zM25 27h2v1h-2zM30 27h2v1h-2zM33 27h1v1h-1zM2 28h7v1h-7zM10 28h1v1h-1zM13 28h4v1h-4zM18 28h2v1h-2zM21 28h1v1h-1zM25 28h2v1h-2zM28 28h1v1h-1zM30 28h1v1h-1zM2 29h1v1h-1zM8 29h1v1h-1zM10 29h3v1h-3zM14 29h2v1h-2zM17 29h1v1h-1zM22 29h2v1h-2zM25 29h2v1h-2zM30 29h4v1h-4zM2 30h1v1h-1zM4 30h3v1h-3zM8 30h1v1h-1zM11 30h1v1h-1zM14 30h1v1h-1zM20 30h11v1h-11zM32 30h3v1h-3zM2 31h1v1h-1zM4 31h3v1h-3zM8 31h1v1h-1zM10 31h3v1h-3zM14 31h4v1h-4zM22 31h1v1h-1zM29 31h1v1h-1zM31 31h1v1h-1zM34 31h1v1h-1zM2 32h1v1h-1zM4 32h3v1h-3zM8 32h1v1h-1zM10 32h3v1h-3zM17 32h2v1h-2zM20 32h1v1h-1zM24 32h2v1h-2zM28 32h2v1h-2zM31 32h1v1h-1zM2 33h1v1h-1zM8 33h1v1h-1zM12 33h1v1h-1zM15 33h2v1h-2zM19 33h3v1h-3zM24 33h4v1h-4zM29 33h3v1h-3zM34 33h1v1h-1zM2 34h7v1h-7zM10 34h4v1h-4zM16 34h1v1h-1zM19 34h3v1h-3zM23 34h1v1h-1zM25 34h1v1h-1zM27 34h2v1h-2zM30 34h1v1h-1zM32 34h1v1h-1z"/></svg>
+<figcaption>QR do link de teste. Vale depois que seu e-mail estiver liberado.</figcaption>
+</figure>
+</div>
+</div>
+
+<h3>O que vale olhar com carinho</h3>
+<ul>
+<li><strong>A primeira abertura.</strong> Escaneie uma carta de verdade e veja o que o app faz com ela — foi refeita inteira agora.</li>
+<li><strong>O scanner.</strong> Aponte para cartas difíceis: nomes repetidos, Dálmatas a–e, enchanted.</li>
+<li><strong>O preço em real.</strong> Confira se os valores fazem sentido com o que você vê à venda por aí.</li>
+<li><strong>Os decks.</strong> Cole uma decklist da Liga Lorcana ou do Dreamborn e veja se ela entra inteira.</li>
+<li><strong>Qualquer coisa em português que soe estranha.</strong> A tradução das regras é minha, não é oficial.</li>
+</ul>
+<p>Achou algo torto? Escreva para <a href="mailto:gabrielk.vaz@gmail.com">gabrielk.vaz@gmail.com</a>. Print da tela ajuda muito.</p>
+
+<h3>De graça, sem conta, sem nuvem</h3>
+<p>Não tem anúncio, não tem compra dentro do app, não tem assinatura e não tem cadastro. Sua coleção fica no seu aparelho: não existe servidor do nosso lado para guardá-la. O reconhecimento de carta pela câmera também roda no próprio aparelho — nenhuma foto sai dele.</p>
+<p class="top-link"><a href="#">Voltar ao topo</a></p>
+</section>
+
+<section class="lang" id="en" lang="en-US">
+<h2>English</h2>
+
+<p>LorcanApp is a collection and deck app for <strong>Disney Lorcana</strong>: the full 3,242-card catalog offline, a camera scanner that recognizes cards on-device, market prices, a deck builder that proves legality card by card, and a lore counter for up to 4 players.</p>
+
+<p><strong>It is not on the stores yet.</strong> Both versions are in testing, and that is where you come in.</p>
+
+<h3>iPhone and iPad <span class="tag">testable now</span></h3>
+<div class="dl">
+<div class="plat">
+<div>
+<p>iPhone testing runs through <strong>TestFlight</strong>, Apple's official app for trying apps before release. It is free and takes about a minute.</p>
+<ol class="steps">
+<li>Install <a href="https://apps.apple.com/app/testflight/id899247664">TestFlight</a> from the App Store. Without it, the link in step 2 opens nothing.</li>
+<li>Open this link <strong>on the iPhone</strong>: <a href="https://testflight.apple.com/join/X5Pm5wqt">testflight.apple.com/join/X5Pm5wqt</a></li>
+<li>TestFlight opens on LorcanApp. Tap <strong>Accept</strong>, then <strong>Install</strong>.</li>
+<li>Done — the app lands on your home screen with a small orange dot next to its name.</li>
+</ol>
+<p><a class="btn primary" href="https://testflight.apple.com/join/X5Pm5wqt">Test on iPhone</a></p>
+<p class="soon">If the link says the beta is full or expired, email me and I will open more seats.</p>
+</div>
+</div>
+</div>
+
+<h3>Android <span class="tag">needs your email allowlisted</span></h3>
+<div class="dl">
+<div class="plat">
+<div>
+<p>On Android the app is in Google Play <strong>closed testing</strong>. Google only lets allowlisted testers install it, so the link alone is not enough — I need to add your email first.</p>
+<ol class="steps">
+<li>Send me the <strong>Google account email of your phone</strong> (the one you use on the Play Store), by <a href="mailto:gabrielk.vaz@gmail.com?subject=I%20want%20to%20test%20LorcanApp%20on%20Android&amp;body=Hi!%20I%27d%20like%20to%20join%20the%20LorcanApp%20closed%20test.%0A%0AMy%20Google%20(Play%20Store)%20email%20is%3A%20">email</a>.</li>
+<li>I add you to the list and reply. Usually within a few hours.</li>
+<li>Then open this link <strong>on the phone</strong>, signed in with that account: <a href="https://play.google.com/apps/testing/com.gabrielvaz.lorcanapp">play.google.com/apps/testing/com.gabrielvaz.lorcanapp</a></li>
+<li>Tap <strong>Become a tester</strong>, then <strong>Download it on Google Play</strong>.</li>
+</ol>
+<p><a class="btn primary" href="mailto:gabrielk.vaz@gmail.com?subject=I%20want%20to%20test%20LorcanApp%20on%20Android&amp;body=Hi!%20I%27d%20like%20to%20join%20the%20LorcanApp%20closed%20test.%0A%0AMy%20Google%20(Play%20Store)%20email%20is%3A%20">Ask for test access</a>
+<a class="btn" href="https://play.google.com/apps/testing/com.gabrielvaz.lorcanapp">I'm allowlisted, let me install</a></p>
+<p class="soon">Google requires 12 active testers for 14 consecutive days before the app can reach the open store. Whoever joins now and keeps it installed for two weeks is literally what gets it published.</p>
+</div>
+</div>
+</div>
+
+<h3>Free, no account, no cloud</h3>
+<p>No ads, no in-app purchases, no subscription, no sign-up. Your collection stays on your device: there is no server on our side to hold it. Card recognition also runs on-device — no photo leaves the phone.</p>
+<p>Found something broken? Write to <a href="mailto:gabrielk.vaz@gmail.com">gabrielk.vaz@gmail.com</a>. A screenshot helps a lot.</p>
+<p class="top-link"><a href="#">Back to top</a></p>
+</section>
+</main>
+
+<footer>
+<ul>
+<li lang="pt-BR"><strong>Testar</strong> &middot; <a href="./">Início e suporte</a> &middot; <a href="privacy.html">Política de Privacidade</a> &middot; <a href="terms.html">Termos de Uso</a> &middot; <a href="../">Todos os apps</a></li>
+<li lang="en-US"><strong>Testing</strong> &middot; <a href="./">Home &amp; support</a> &middot; <a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Use</a> &middot; <a href="../">All apps</a></li>
+</ul>
+<p>LorcanApp &mdash; Gabriel Kruschewsky Mattos Vaz &middot; <a href="mailto:gabrielk.vaz@gmail.com">gabrielk.vaz@gmail.com</a></p>
+</footer>
+</div>
+<script>
+// Progressive enhancement: reconhece a plataforma e põe o bloco certo na
+// frente, com realce. Sem JS os dois blocos continuam visíveis e completos —
+// detecção de user agent erra, e esconder um caminho por causa dela deixaria
+// alguém sem nenhum.
+(function () {
+  var ua = navigator.userAgent || ''
+  var ios = /iPad|iPhone|iPod/.test(ua) || (ua.indexOf('Mac') > -1 && 'ontouchend' in document)
+  var android = /Android/.test(ua)
+  if (!ios && !android) return
+  var alvo = document.getElementById(ios ? 'bloco-ios' : 'bloco-android')
+  if (alvo) alvo.classList.add('match')
+})()
+</script>
+</body>
+</html>
